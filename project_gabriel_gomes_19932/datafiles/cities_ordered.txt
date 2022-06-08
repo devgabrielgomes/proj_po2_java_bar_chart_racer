@@ -1,0 +1,11 @@
+Fez Morocco 130 Middle East
+Cuttack India 140 South Asia
+Nanjing China 147 East Asia
+Guangzhou China 150 East Asia
+Paris France 185 Europe
+
+Karachi Pakistan 18185 South Asia
+New York United States 18713 North America
+Dhaka Bangladesh 19633 South Asia
+Cairo Egypt 19850 Middle East
+Osaka Japan 20409 East Asia
