@@ -2,6 +2,7 @@ package pt.ipbeja.po2.chartracer.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class OrderCities implements Comparable<OrderCities>{
@@ -58,7 +59,7 @@ public class OrderCities implements Comparable<OrderCities>{
     public static ArrayList<OrderCities> orderByPopulation(int year){
         String[][] cities = BarchartModel.readFileToStringArray2D("datafiles/cities.txt", ",");
         int yearLine = 0;
-        for (int i = 0; i < cities.length; i++) {
+        for (int i = 3; i < cities.length; i++) {
             try{
                 if(Integer.parseInt(cities[i][0]) == year) {
                     yearLine = i;
@@ -74,7 +75,7 @@ public class OrderCities implements Comparable<OrderCities>{
         for (int k = yearLine; k < yearLine+12; k++) {
             orderByCityPopulation.add(new OrderCities(year, cities[k][1], cities[k][2], Integer.parseInt(cities[k][3]), cities[k][4]));
         }
-        Collections.sort(orderByCityPopulation);
+        Collections.sort(orderByCityPopulation, Comparator.reverseOrder());
 
 //        System.out.println("Movies after sorting : ");
 //        for (OrderCities test: orderByCityPopulation)
@@ -88,11 +89,13 @@ public class OrderCities implements Comparable<OrderCities>{
         return orderByCityPopulation;
     }
 
-//    public static ArrayList<OrderCities> orderByPopulation(){
-//        for (int i = 0; i < ; i++) {
-//
-//        }
-//    }
+    public static ArrayList<OrderCities> orderByPopulation(){
+        ArrayList<OrderCities> allCitiesOrdered = new ArrayList<>();
+        for (int year = 1500; year <= 2018; year++) {
+            //ArrayList<OrderCities> atualFirstYearOrdered = OrderCities.orderByPopulation(1500);
+            allCitiesOrdered.add(OrderCities.orderByPopulation(year));
+        }
+    }
 
 }
 
