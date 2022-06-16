@@ -39,34 +39,34 @@ class BarchartModelTest {
 
     @Test
     public void teste2() {
-        ArrayList<OrderCities> atualNLines = OrderCities.orderByPopulation(1600);
+        ArrayList<OrderCities> atualNLines = OrderCities.orderYearByPopulation(1600);
 
         ArrayList<OrderCities> expectedNLines = new ArrayList<OrderCities>();
-        expectedNLines.add(new OrderCities(1600, "Ahmedabad", "India", 190, "South Asia"));
-        expectedNLines.add(new OrderCities(1600, "Nanjing", "China", 194, "East Asia"));
+        expectedNLines.add(new OrderCities(1600, "Beijing", "China", 706, "East Asia"));
+        expectedNLines.add(new OrderCities(1600, "Istanbul", "Turkey", 700, "Europe"));
+        expectedNLines.add(new OrderCities(1600, "Agra", "India", 500,"South Asia"));
+        expectedNLines.add(new OrderCities(1600, "Osaka", "Japan", 360, "East Asia"));
+        expectedNLines.add(new OrderCities(1600, "Kyoto", "Japan", 300, "East Asia"));
+        expectedNLines.add(new OrderCities(1600, "Hangzhou", "China", 270, "East Asia"));
+        expectedNLines.add(new OrderCities(1600, "Paris", "France", 245, "Europe"));
+        expectedNLines.add(new OrderCities(1600, "Naples", "Italy", 224, "Europe"));
         expectedNLines.add(new OrderCities(1600, "Bijapur", "India", 200, "South Asia"));
         expectedNLines.add(new OrderCities(1600, "Cairo", "Egypt", 200, "Middle East"));
-        expectedNLines.add(new OrderCities(1600, "Naples", "Italy", 224, "Europe"));
-        expectedNLines.add(new OrderCities(1600, "Paris", "France", 245, "Europe"));
-        expectedNLines.add(new OrderCities(1600, "Hangzhou", "China", 270, "East Asia"));
-        expectedNLines.add(new OrderCities(1600, "Kyoto", "Japan", 300, "East Asia"));
-        expectedNLines.add(new OrderCities(1600, "Osaka", "Japan", 360, "East Asia"));
-        expectedNLines.add(new OrderCities(1600, "Agra", "India", 500,"South Asia"));
-        expectedNLines.add(new OrderCities(1600, "Istanbul", "Turkey", 700, "Europe"));
-        expectedNLines.add(new OrderCities(1600, "Beijing", "China", 706, "East Asia"));
+        expectedNLines.add(new OrderCities(1600, "Nanjing", "China", 194, "East Asia"));
+        expectedNLines.add(new OrderCities(1600, "Ahmedabad", "India", 190, "South Asia"));
 
         assertEquals(expectedNLines, atualNLines);
     }
 
     @Test
     public void teste3() {
-        ArrayList<OrderCities> atualFirstYearOrdered = OrderCities.orderByPopulation(1500);
+        ArrayList<OrderCities> atualFirstYearOrdered = OrderCities.orderYearByPopulation(1500);
         ArrayList<OrderCities> atualFirstYearOrderedFiveLines = new ArrayList<OrderCities>();
         for (int i = 0; i <= 4; i++) {
             atualFirstYearOrderedFiveLines.add(atualFirstYearOrdered.get(i));
         }
 
-        ArrayList<OrderCities> atualLastYearOrdered = OrderCities.orderByPopulation(2018);
+        ArrayList<OrderCities> atualLastYearOrdered = OrderCities.orderYearByPopulation(2018);
         ArrayList<OrderCities> atualLastYearOrderedFiveLines = new ArrayList<OrderCities>();
         for (int i = 0; i <= 4; i++) {
             atualLastYearOrderedFiveLines.add(atualLastYearOrdered.get(i));
@@ -90,7 +90,7 @@ class BarchartModelTest {
 //        assertEquals(atualLastYearOrderedFiveLines, expectedLastYearOrderedFiveLines);
 
 
-        String[] expectedOrderedCities = {"Fez Morocco 130 Middle East", "Cuttack India 140 South Asia", "Nanjing China 147 East Asia", "Guangzhou China 150 East Asia", "Paris France 185 Europe", "", "Karachi Pakistan 18185 South Asia", "New York United States 18713 North America", "Dhaka Bangladesh 19633 South Asia", "Cairo Egypt 19850 Middle East", "Osaka Japan 20409 East Asia"};
+        String[] expectedOrderedCities = {"Beijing China 672 East Asia", "Vijayanagar India 500 South Asia", "Cairo Egypt 400 Middle East", "Hangzhou China 250 East Asia", "Tabriz Iran 250 Middle East", "", "Tokyo Japan 38194 East Asia", "Delhi India 27890 South Asia", "Shanghai China 25779 East Asia", "Beijing China 22674 East Asia", "Mumbai India 22120 South Asia"};
 
         try {
             FileWriter f = new FileWriter("datafiles/cities_ordered.txt");
@@ -135,5 +135,10 @@ class BarchartModelTest {
 
 
         assertEquals(expectedOrderedCities, atualOrderedCities);
+    }
+
+    @Test
+    public void teste4() {
+        //OrderCities.orderAllYears();
     }
 }

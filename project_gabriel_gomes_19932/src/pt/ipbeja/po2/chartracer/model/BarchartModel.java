@@ -7,6 +7,27 @@ import java.util.List;
 
 
 public class BarchartModel {
+    public BarchartModel(View view) {
+        this.view = view;
+    }
+
+    private View view;
+
+    public void loadCitiesData() {
+        Thread t = new Thread(() -> {
+            for (int i = 0; i < YearInfo.getAllYearsLines().length; i++) {
+                this.view.create(OrderCities.orderYearByPopulation(YearInfo.getAllYearsLines()[i][0]));
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+
+        //this.view.create(OrderCities.orderYearByPopulation(1500));
+    }
 
 //    public static void main(String[] args) {
 //        readFileLines("datafiles/cities.txt");
@@ -43,7 +64,7 @@ public class BarchartModel {
         } catch (IOException e) {
             String errorMessage = "Error reading file " + filename;
             System.out.println(errorMessage);
-            System.out.println(errorMessage + " - Exception " + e.toString())  ;
+            System.out.println(errorMessage + " - Exception " + e.toString());
             return new String[0][];
         }
     }

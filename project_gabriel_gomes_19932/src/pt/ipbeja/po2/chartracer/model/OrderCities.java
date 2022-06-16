@@ -1,9 +1,6 @@
 package pt.ipbeja.po2.chartracer.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 public class OrderCities implements Comparable<OrderCities>{
     private int year;
@@ -11,6 +8,8 @@ public class OrderCities implements Comparable<OrderCities>{
     private int nPopulation;
     private String country;
     private String continent;
+    private static int[][] allYearsInfo = YearInfo.getAllYearsLines();
+    public static String[][] cities = BarchartModel.readFileToStringArray2D("datafiles/cities.txt", ",");
 
 
     public int compareTo(OrderCities temp) {
@@ -56,46 +55,56 @@ public class OrderCities implements Comparable<OrderCities>{
         return Objects.hash(year, cityName, nPopulation, country, continent);
     }
 
-    public static ArrayList<OrderCities> orderByPopulation(int year){
-        String[][] cities = BarchartModel.readFileToStringArray2D("datafiles/cities.txt", ",");
-        int yearLine = 0;
-        for (int i = 3; i < cities.length; i++) {
-            try{
-                if(Integer.parseInt(cities[i][0]) == year) {
-                    yearLine = i;
-                    break;
-                }
-            }
-            catch (NumberFormatException ex){
-                ;
-            }
-        }
-
+    public static ArrayList<OrderCities> orderYearByPopulation(int year){
         ArrayList<OrderCities> orderByCityPopulation = new ArrayList<OrderCities>();
+        orderByCityPopulation.clear();
+        int yearLine = YearInfo.getYearLine(year);
         for (int k = yearLine; k < yearLine+12; k++) {
             orderByCityPopulation.add(new OrderCities(year, cities[k][1], cities[k][2], Integer.parseInt(cities[k][3]), cities[k][4]));
         }
         Collections.sort(orderByCityPopulation, Comparator.reverseOrder());
-
-//        System.out.println("Movies after sorting : ");
-//        for (OrderCities test: orderByCityPopulation)
-//        {
-//            System.out.println(test.getYear() + " " +
-//                    test.getCityName() + " " +
-//                    test.getCountry() + " " +
-//                    test.getnPopulation() + " " +
-//                    test.getContinent());
-//        }
+        printOrdered(orderByCityPopulation);
         return orderByCityPopulation;
     }
 
-    public static ArrayList<OrderCities> orderByPopulation(){
-        ArrayList<OrderCities> allCitiesOrdered = new ArrayList<>();
-        for (int year = 1500; year <= 2018; year++) {
-            //ArrayList<OrderCities> atualFirstYearOrdered = OrderCities.orderByPopulation(1500);
-            allCitiesOrdered.add(OrderCities.orderByPopulation(year));
+//    public static void printAllOrderAllYears() {
+//        for (int i = 0; i < allYearsInfo.length; i++) {
+//            orderYearByPopulation(allYearsInfo[i][0]);
+//        }
+//    }
+
+//    public static List<List<OrderCities>> orderAllYears() {
+//        List <List<OrderCities>> orderAllYears = new ArrayList<List<OrderCities>>();
+//
+//        //ArrayList<OrderCities> orderAllYears = new ArrayList<OrderCities>();
+//        for (int i = 0; i < allYearsInfo.length; i++) {
+//            orderAllYears.add(orderYearByPopulation(allYearsInfo[i][0]));
+//        }
+//        //System.out.println(orderAllYears);
+//        return orderAllYears;
+//    }
+
+    public static void printOrdered(ArrayList<OrderCities> arrayListToPrint) {
+        System.out.println("Cities after sorting : ");
+        for (OrderCities test: arrayListToPrint)
+        {
+            System.out.println(test.getYear() + " " +
+                    test.getCityName() + " " +
+                    test.getCountry() + " " +
+                    test.getnPopulation() + " " +
+                    test.getContinent());
         }
     }
+
+
+
+//    public static ArrayList<OrderCities> orderByPopulation(){
+//        ArrayList<OrderCities> allCitiesOrdered = new ArrayList<>();
+//        for (int year = 1500; year <= 2018; year++) {
+//            //ArrayList<OrderCities> atualFirstYearOrdered = OrderCities.orderByPopulation(1500);
+//            allCitiesOrdered.add(OrderCities.orderByPopulation(year));
+//        }
+//    }
 
 }
 
