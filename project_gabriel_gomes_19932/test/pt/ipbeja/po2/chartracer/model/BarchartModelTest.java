@@ -13,13 +13,21 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * class to test the written code
+ *
+ * @author Gabriel Alexandre Teixeira Gomes
+ * @version 2022-06-22
+ */
 class BarchartModelTest {
+    private int firstYear = 1500;
+    private int lastYear = 2018;
 
+    /**
+     * read a file and confirm if the file with being well-read
+     */
     @Test
     public void teste1() {
-        System.out.println("Ler um ficheiro de dados e verificar que está bem lido " +
-                "(os dados lidos são os esperados)");
-
         String[][] atual = BarchartModel.readFileToStringArray2D("datafiles/cities.txt", ",");
         String[][] atualNLines = new String[3][5];
         int k = 0;
@@ -37,61 +45,62 @@ class BarchartModelTest {
         assertArrayEquals(expectedNLines, atualNLines);
     }
 
+    /**
+     * sort the first and last year and confirm if the years are being well sorted
+     */
     @Test
     public void teste2() {
-        ArrayList<OrderCities> atualNLines = OrderCities.orderYearByPopulation(1600);
+        ArrayList<OrderCities> atualNLinesFirstYear = OrderCities.orderYearByPopulation(firstYear);
+        ArrayList<OrderCities> expectedNLinesFirstYear = new ArrayList<OrderCities>();
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Beijing", "China", 672, "East Asia"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Vijayanagar", "India", 500, "South Asia"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Cairo", "Egypt", 400, "Middle East"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Hangzhou", "China", 250, "East Asia"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Tabriz", "Iran", 250, "Middle East"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Gauda", "India", 200, "South Asia"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Istanbul", "Turkey", 200, "Europe"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Paris", "France", 185, "Europe"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Guangzhou", "China", 150, "East Asia"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Nanjing", "China", 147, "East Asia"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Cuttack", "India", 140, "South Asia"));
+        expectedNLinesFirstYear.add(new OrderCities(firstYear, "Fez", "Morocco", 130, "Middle East"));
 
-        ArrayList<OrderCities> expectedNLines = new ArrayList<OrderCities>();
-        expectedNLines.add(new OrderCities(1600, "Beijing", "China", 706, "East Asia"));
-        expectedNLines.add(new OrderCities(1600, "Istanbul", "Turkey", 700, "Europe"));
-        expectedNLines.add(new OrderCities(1600, "Agra", "India", 500,"South Asia"));
-        expectedNLines.add(new OrderCities(1600, "Osaka", "Japan", 360, "East Asia"));
-        expectedNLines.add(new OrderCities(1600, "Kyoto", "Japan", 300, "East Asia"));
-        expectedNLines.add(new OrderCities(1600, "Hangzhou", "China", 270, "East Asia"));
-        expectedNLines.add(new OrderCities(1600, "Paris", "France", 245, "Europe"));
-        expectedNLines.add(new OrderCities(1600, "Naples", "Italy", 224, "Europe"));
-        expectedNLines.add(new OrderCities(1600, "Bijapur", "India", 200, "South Asia"));
-        expectedNLines.add(new OrderCities(1600, "Cairo", "Egypt", 200, "Middle East"));
-        expectedNLines.add(new OrderCities(1600, "Nanjing", "China", 194, "East Asia"));
-        expectedNLines.add(new OrderCities(1600, "Ahmedabad", "India", 190, "South Asia"));
+        ArrayList<OrderCities> atualNLinesLastYear = OrderCities.orderYearByPopulation(lastYear);
+        ArrayList<OrderCities> expectedNLinesLastYear = new ArrayList<OrderCities>();
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"Tokyo", "Japan", 38194, "East Asia"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"Delhi", "India", 27890, "South Asia"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"Shanghai", "China", 25779, "East Asia"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"Beijing", "China", 22674, "East Asia"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"Mumbai", "India", 22120, "South Asia"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"São Paulo", "Brazil", 21698, "Latin America"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"Mexico City", "Mexico", 21520, "Latin America"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"Osaka", "Japan", 20409, "East Asia"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"Cairo", "Egypt", 19850, "Middle East"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"Dhaka", "Bangladesh", 19633, "South Asia"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"New York", "United States", 18713, "North America"));
+        expectedNLinesLastYear.add(new OrderCities(lastYear,"Karachi", "Pakistan", 18185, "South Asia"));
 
-        assertEquals(expectedNLines, atualNLines);
+        assertEquals(expectedNLinesFirstYear, atualNLinesFirstYear);
+        assertEquals(expectedNLinesLastYear, atualNLinesLastYear);
     }
 
+    /**
+     * write in a file the first five already sorted lines of two years last year
+     * and confirm if the file is being well written
+     */
     @Test
     public void teste3() {
-        ArrayList<OrderCities> atualFirstYearOrdered = OrderCities.orderYearByPopulation(1500);
         ArrayList<OrderCities> atualFirstYearOrderedFiveLines = new ArrayList<OrderCities>();
         for (int i = 0; i <= 4; i++) {
-            atualFirstYearOrderedFiveLines.add(atualFirstYearOrdered.get(i));
+            atualFirstYearOrderedFiveLines.add(OrderCities.orderYearByPopulation(firstYear).get(i));
         }
 
-        ArrayList<OrderCities> atualLastYearOrdered = OrderCities.orderYearByPopulation(2018);
         ArrayList<OrderCities> atualLastYearOrderedFiveLines = new ArrayList<OrderCities>();
         for (int i = 0; i <= 4; i++) {
-            atualLastYearOrderedFiveLines.add(atualLastYearOrdered.get(i));
+            atualLastYearOrderedFiveLines.add(OrderCities.orderYearByPopulation(lastYear).get(i));
         }
 
-//        ArrayList<OrderCities> expectedFirstYearOrderedFiveLines = new ArrayList<OrderCities>();
-//        expectedFirstYearOrderedFiveLines.add(new OrderCities(1500, "Fez", "Morocco", 130, "Middle East"));
-//        expectedFirstYearOrderedFiveLines.add(new OrderCities(1500, "Cuttack", "India", 140, "South Asia"));
-//        expectedFirstYearOrderedFiveLines.add(new OrderCities(1500, "Nanjing", "China", 147, "East Asia"));
-//        expectedFirstYearOrderedFiveLines.add(new OrderCities(1500, "Guangzhou", "China", 150, "East Asia"));
-//        expectedFirstYearOrderedFiveLines.add(new OrderCities(1500, "Paris", "France", 185, "Europe"));
-//
-//        ArrayList<OrderCities> expectedLastYearOrderedFiveLines = new ArrayList<OrderCities>();
-//        expectedLastYearOrderedFiveLines.add(new OrderCities(2018, "Karachi", "Pakistan", 18185, "South Asia"));
-//        expectedLastYearOrderedFiveLines.add(new OrderCities(2018, "New York", "United States", 18713, "North America"));
-//        expectedLastYearOrderedFiveLines.add(new OrderCities(2018, "Dhaka", "Bangladesh", 19633, "South Asia"));
-//        expectedLastYearOrderedFiveLines.add(new OrderCities(2018, "Cairo", "Egypt", 19850, "Middle East"));
-//        expectedLastYearOrderedFiveLines.add(new OrderCities(2018, "Osaka", "Japan", 20409, "East Asia"));
-//
-//        assertEquals(atualFirstYearOrderedFiveLines, expectedFirstYearOrderedFiveLines);
-//        assertEquals(atualLastYearOrderedFiveLines, expectedLastYearOrderedFiveLines);
-
-
         String[] expectedOrderedCities = {"Beijing China 672 East Asia", "Vijayanagar India 500 South Asia", "Cairo Egypt 400 Middle East", "Hangzhou China 250 East Asia", "Tabriz Iran 250 Middle East", "", "Tokyo Japan 38194 East Asia", "Delhi India 27890 South Asia", "Shanghai China 25779 East Asia", "Beijing China 22674 East Asia", "Mumbai India 22120 South Asia"};
-
         try {
             FileWriter f = new FileWriter("datafiles/cities_ordered.txt");
             for (OrderCities test: atualFirstYearOrderedFiveLines) {
@@ -119,11 +128,8 @@ class BarchartModelTest {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
-        //System.out.println(Arrays.deepToString(atualOrderedCities));
 
         for (int i = 0; i < atualOrderedCities.length; i++) {
             System.out.println(i + ": " + atualOrderedCities[i]);
@@ -133,12 +139,6 @@ class BarchartModelTest {
             System.out.println(i + ": " + expectedOrderedCities[i]);
         }
 
-
-        assertEquals(expectedOrderedCities, atualOrderedCities);
-    }
-
-    @Test
-    public void teste4() {
-        //OrderCities.orderAllYears();
+        assertArrayEquals(expectedOrderedCities, atualOrderedCities);
     }
 }
