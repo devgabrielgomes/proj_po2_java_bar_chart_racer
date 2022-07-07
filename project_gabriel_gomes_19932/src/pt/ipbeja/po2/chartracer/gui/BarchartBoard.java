@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  * @author Gabriel Alexandre Teixeira Gomes
  * @version 2022-06-22
  */
-public class BarchartBoard extends StackPane implements View {
+public class BarchartBoard extends VBox implements View {
     private ListView listView;
 
     BarchartModel model = new BarchartModel(this);
@@ -91,6 +92,10 @@ public class BarchartBoard extends StackPane implements View {
 //        box2.setAlignment(Pos.TOP_LEFT);
 //        this.getChildren().addAll(box2, title, description, sources, currentYearText);
 
+//        Text title = new Text();
+//        title.setText(fileLines[0]);
+//        title.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+
         VBox menuBox = new VBox();
         menuBox.getChildren().addAll(menuBar);
         menuBox.setAlignment(Pos.TOP_LEFT);
@@ -100,28 +105,31 @@ public class BarchartBoard extends StackPane implements View {
         Platform.runLater( () ->
                 {
                     VBox barBox = new VBox();
+                    VBox countryBox = new VBox();
                     ArrayList<OrderCities> atualFirstYearOrdered = orderCities;
                     for (int i = 0; i < atualFirstYearOrdered.size(); i++) {
                         OrderCities orderCitiesElement = atualFirstYearOrdered.get(i);
-                        Rectangle r = new Rectangle(orderCitiesElement.getnPopulation(), 50);
-                        VBox extra = new VBox();
-
+                        Rectangle r = new Rectangle(orderCitiesElement.getnPopulation(), 30);
                         r.setFill(Color.RED);
+
+                        Text country = new Text(orderCitiesElement.getCountry());
                         barBox.setMargin(r, new Insets(8, 10, 10, 10));
-                        barBox.setAlignment(Pos.CENTER_LEFT);
-                        barBox.getChildren().addAll(r, extra);
+                        barBox.getChildren().addAll(r, country);
 
                         Text currentYearText = new Text();
                         currentYearText.setText(String.valueOf(currentYear));
                         currentYearText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR,100));
                         currentYearText.setFill(Color.DARKGREY);
+
                         HBox yearBox = new HBox(currentYearText);
                         yearBox.setAlignment(Pos.TOP_RIGHT);
+
                         this.getChildren().clear();
                         this.getChildren().add(yearBox);
                     }
                     barBox.setAlignment(Pos.TOP_LEFT);
-                    this.getChildren().addAll(barBox, menuBox);
+                    menuBox.setSpacing(20);
+                    this.getChildren().addAll(menuBox, barBox);
                 }
         );
     }

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="MyApp" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="pt.ipbeja.po2.chartracer.gui.MyApp" />
+  <configuration default="false" name="BarchartStart" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="pt.ipbeja.po2.chartracer.gui.BarchartStart" />
     <module name="project_gabriel_gomes_19932" />
     <option name="VM_PARAMETERS" value="--module-path C:\javafx-sdk\lib --add-modules=javafx.controls" />
     <method v="2">
