@@ -1,1 +1,9 @@
-E1, E2, E3, E4
+E1: 2v
+E2: 3v
+E3: 2v
+E4: 3v
+NE1: 2,5v
+PB2: 1,5v
+
+Nota final: 14v
+Número de horas: 50h

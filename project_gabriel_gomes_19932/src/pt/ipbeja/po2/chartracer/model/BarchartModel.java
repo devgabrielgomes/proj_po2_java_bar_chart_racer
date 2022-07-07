@@ -22,28 +22,28 @@ public class BarchartModel {
     public BarchartModel(View view) {
         this.view = view;
     }
+    public static int[][] yearLines = YearInfo.getAllYearsLines();
 
     private View view;
     private int currentYear = 0;
-    private int animationDelay = 5;
-    public final String[] fileLines = readFileToStringArray("datafiles/cities.txt");
-    public final int maxCityPopulation = parseInt(fileLines[(fileLines.length-1)].substring(17,22));
+    private static final int ANIMATION_DELAY = 0;
+    public static final String[] FILE_LINES = readFileToStringArray("datafiles/cities.txt");
+    public static final int MAX_CITY_POPULATION = parseInt(FILE_LINES[(FILE_LINES.length-1)].substring(17,22));
 
     /**
      * loads all city's sorted data to the View
      */
     public void loadCitiesData() {
         Thread t = new Thread(() -> {
-            for (int i = 0; i < YearInfo.getAllYearsLines().length; i++) {
-                currentYear = YearInfo.getAllYearsLines()[i][0];
-                this.view.create(OrderCities.orderYearByPopulation(YearInfo.getAllYearsLines()[i][0]), fileLines, currentYear, maxCityPopulation);
+            for (int i = 0; i < yearLines.length; i++) {
+                currentYear = yearLines[i][0];
+                this.view.create(OrderCities.orderYearByPopulation(yearLines[i][0]), FILE_LINES, currentYear, MAX_CITY_POPULATION);
                 try {
-                    Thread.sleep(animationDelay);
+                    Thread.sleep(ANIMATION_DELAY);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            System.out.println(currentYear);
         });
         t.start();
     }

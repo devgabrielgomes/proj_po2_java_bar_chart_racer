@@ -17,8 +17,8 @@ public class BarchartStart extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    public static int maxWidth = 1400;
-    public static int maxHeight = 900;
+    public static final int MAX_WIDTH = 1700;
+    public static final int MAX_HEIGHT = 800;
 
     /**
      * set up the stage (window) and its menu
@@ -29,8 +29,11 @@ public class BarchartStart extends Application {
     public void start(Stage stage) {
         stage.setOnCloseRequest(e -> exit());
         BarchartBoard board = new BarchartBoard();
-        board.setPrefSize(maxWidth, maxHeight);
-        Scene scene = new Scene(board);
+        board.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
+
+        VBox box = new VBox();
+        box.getChildren().addAll(board.createMenuBar(), board);
+        Scene scene = new Scene(box);
         stage.setScene(scene);
         stage.show();
     }
@@ -40,7 +43,6 @@ public class BarchartStart extends Application {
      */
     private void exit() {
         Platform.runLater(() -> {
-
             Platform.exit();
             System.exit(0);
         });
