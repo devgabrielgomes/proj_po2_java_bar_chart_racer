@@ -9,5 +9,5 @@ import java.util.ArrayList;
  * @version 2022-06-22
  */
 public interface View {
-    void create(ArrayList<OrderCities> orderCities, String[] fileLines, int currentYear);
+    void create(ArrayList<OrderCities> orderCities, String[] fileLines, int currentYear, int maxCityPopulation);
 }

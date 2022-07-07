@@ -23,6 +23,8 @@ import pt.ipbeja.po2.chartracer.model.View;
 import java.io.File;
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * Board class of the project
  *
@@ -40,11 +42,14 @@ public class BarchartBoard extends VBox implements View {
     /**
      * create all the graphics
      *
-     * @param   orderCities     arraylist
-     * @param   fileLines       array of string with file lines
-     * @param   currentYear     int variable with current year
+     * @param   orderCities         arraylist
+     * @param   fileLines           array of string with file lines
+     * @param   currentYear         int variable with current year
+     * @param   maxCityPopulation   int variable with max city population
      */
-    public void create(ArrayList<OrderCities> orderCities, String[] fileLines, int currentYear) {
+    public void create(ArrayList<OrderCities> orderCities, String[] fileLines, int currentYear, int maxCityPopulation) {
+        //int maxCityPopulation = parseInt(fileLines[(fileLines.length-1)].substring(17,22));
+
         // Menu to select files
         Menu select_file_menu = new Menu("Ficheiros");
         MenuItem select_file_option_1 = new MenuItem("Selecionar um ficheiro");
@@ -109,7 +114,8 @@ public class BarchartBoard extends VBox implements View {
                     ArrayList<OrderCities> atualFirstYearOrdered = orderCities;
                     for (int i = 0; i < atualFirstYearOrdered.size(); i++) {
                         OrderCities orderCitiesElement = atualFirstYearOrdered.get(i);
-                        Rectangle r = new Rectangle(orderCitiesElement.getnPopulation(), 30);
+                        int barWidth = (((BarchartStart.maxWidth - 50) * orderCitiesElement.getnPopulation())/maxCityPopulation);
+                        Rectangle r = new Rectangle(barWidth, 30);
                         r.setFill(Color.RED);
 
                         Text country = new Text(orderCitiesElement.getCountry());
@@ -134,6 +140,7 @@ public class BarchartBoard extends VBox implements View {
         );
     }
 
+
     /**
      * loads the fileChooser
      *
@@ -142,7 +149,7 @@ public class BarchartBoard extends VBox implements View {
     public void fileChooserButton(ActionEvent event) {
         // https://www.youtube.com/watch?v=hNz8Xf4tMI
         FileChooser fc = new FileChooser();
-        fc.setInitialDirectory(new File("C:\\Users\\Gabriel Gomes\\Documents\\GitHub\\po2_project\\project_gabriel_gomes_19932\\datafiles"));
+        fc.setInitialDirectory(new File("project_gabriel_gomes_19932/datafiles"));
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("TXT Files", "*.txt"));
         File selectedFile = fc.showOpenDialog(null);
 

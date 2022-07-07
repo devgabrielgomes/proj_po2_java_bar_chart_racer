@@ -17,6 +17,8 @@ public class BarchartStart extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    public static int maxWidth = 1400;
+    public static int maxHeight = 900;
 
     /**
      * set up the stage (window) and its menu
@@ -27,7 +29,7 @@ public class BarchartStart extends Application {
     public void start(Stage stage) {
         stage.setOnCloseRequest(e -> exit());
         BarchartBoard board = new BarchartBoard();
-        board.setPrefSize(1400, 900);
+        board.setPrefSize(maxWidth, maxHeight);
         Scene scene = new Scene(board);
         stage.setScene(scene);
         stage.show();

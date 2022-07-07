@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Rectagle extends VBox implements View {
     @Override
-    public void create(ArrayList<OrderCities> orderCities, String[] fileLines, int currentYear) {
+    public void create(ArrayList<OrderCities> orderCities, String[] fileLines, int currentYear, int maxCityPopulation) {
         
     }
 }

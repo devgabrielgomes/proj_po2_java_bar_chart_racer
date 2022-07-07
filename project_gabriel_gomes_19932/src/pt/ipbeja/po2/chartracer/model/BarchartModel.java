@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * modal class of the project
  *
@@ -23,7 +25,9 @@ public class BarchartModel {
 
     private View view;
     private int currentYear = 0;
-    private int animationDelay = 100;
+    private int animationDelay = 5;
+    public final String[] fileLines = readFileToStringArray("datafiles/cities.txt");
+    public final int maxCityPopulation = parseInt(fileLines[(fileLines.length-1)].substring(17,22));
 
     /**
      * loads all city's sorted data to the View
@@ -32,7 +36,7 @@ public class BarchartModel {
         Thread t = new Thread(() -> {
             for (int i = 0; i < YearInfo.getAllYearsLines().length; i++) {
                 currentYear = YearInfo.getAllYearsLines()[i][0];
-                this.view.create(OrderCities.orderYearByPopulation(YearInfo.getAllYearsLines()[i][0]), readFileToStringArray("datafiles/cities.txt"), currentYear);
+                this.view.create(OrderCities.orderYearByPopulation(YearInfo.getAllYearsLines()[i][0]), fileLines, currentYear, maxCityPopulation);
                 try {
                     Thread.sleep(animationDelay);
                 } catch (InterruptedException e) {
